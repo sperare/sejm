@@ -1,12 +1,52 @@
-// Sejm Voting Data Configuration
-const sejmVotingData = {
-    date: "2026-02-21",
-    time: "19:49:23",
-    votes: [
-        // Example votes data
-        { id: 1, member: "John Doe", vote: "yes" },
-        { id: 2, member: "Jane Smith", vote: "no" }
-    ]
+export const SEJM_DATA = {
+  clubs: [
+    'PiS',
+    'PO',
+    'PSL',
+    'Lewica',
+    'Konfederacja',
+    'Niezrzeszeni'
+  ],
+  votingScenarios: [
+    {
+      scenario: 'zwykła większość',
+      quorum: '50%',
+      majority: 'Prosta'
+    },
+    {
+      scenario: 'większość konstytucyjna',
+      quorum: '66%',
+      majority: '2/3'
+    },
+    {
+      scenario: 'weto prezydenta',
+      quorum: '50%',
+      majority: 'Prosta'
+    },
+    {
+      scenario: 'poprawki senatu',
+      quorum: '50%',
+      majority: 'Prosta'
+    },
+    {
+      scenario: 'zmiana konstytucji',
+      quorum: '66%',
+      majority: '2/3'
+    },
+    {
+      scenario: 'przełamanie weta sejmu',
+      quorum: '50%',
+      majority: 'Prosta'
+    },
+    {
+      scenario: 'procedura skrócona',
+      quorum: '50%',
+      majority: 'Prosta'
+    },
+    {
+      scenario: 'kontrola rządu',
+      quorum: '50%',
+      majority: 'Prosta'
+    }
+  ]
 };
-
-export default sejmVotingData;
