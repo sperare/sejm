@@ -1,0 +1,711 @@
+:root {
+    /* Define base variables */
+    --color-bg: #f4f6f8;
+    --color-surface: #ffffff;
+    --color-text: #1a1e23;
+    --color-text-muted: #5c6b7a;
+    --color-border: #e0e5eb;
+
+    --color-primary: #3b82f6;
+    --color-primary-hover: #2563eb;
+    --color-secondary: #e2e8f0;
+    --color-secondary-hover: #cbd5e1;
+    --color-secondary-text: #475569;
+
+    --color-za: #10b981;
+    /* Green */
+    --color-za-bg: #d1fae5;
+    --color-przeciw: #ef4444;
+    /* Red */
+    --color-przeciw-bg: #fee2e2;
+    --color-wstrzym: #f59e0b;
+    /* Yellow/Orange */
+    --color-wstrzym-bg: #fef3c7;
+    --color-nieobecni: #64748b;
+    /* Gray */
+    --color-nieobecni-bg: #f1f5f9;
+
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.18);
+}
+
+[data-theme='dark'] {
+    --color-bg: #0f172a;
+    /* Deep Slate */
+    --color-surface: #1e293b;
+    --color-text: #f8fafc;
+    --color-text-muted: #94a3b8;
+    --color-border: #334155;
+
+    --color-primary: #3b82f6;
+    --color-primary-hover: #60a5fa;
+    --color-secondary: #334155;
+    --color-secondary-hover: #475569;
+    --color-secondary-text: #cbd5e1;
+
+    --color-za: #34d399;
+    --color-za-bg: rgba(52, 211, 153, 0.15);
+    --color-przeciw: #f87171;
+    --color-przeciw-bg: rgba(248, 113, 113, 0.15);
+    --color-wstrzym: #fbbf24;
+    --color-wstrzym-bg: rgba(251, 191, 36, 0.15);
+    --color-nieobecni: #94a3b8;
+    --color-nieobecni-bg: rgba(148, 163, 184, 0.15);
+
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    --glass-bg: rgba(30, 41, 59, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    min-height: 100vh;
+    padding: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Utilities */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass);
+}
+
+.warning-text {
+    color: var(--color-danger);
+    font-weight: 600;
+}
+
+/* Layout */
+.app-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.app-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding: 1rem 0;
+}
+
+.app-header h1 {
+    font-weight: 700;
+    font-size: 2rem;
+    background: linear-gradient(135deg, var(--color-primary), #8b5cf6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.app-header p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+}
+
+.theme-toggle {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--color-secondary);
+}
+
+/* Controls */
+.controls-section {
+    padding: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.controls-section h2 {
+    width: 100%;
+    font-size: 1.25rem;
+    margin-bottom: -0.5rem;
+}
+
+.results-section h2 {
+    width: 100%;
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Global Politics Block */
+.global-politics {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.coalition-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.coalition-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--color-surface);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    flex-grow: 1;
+}
+
+.coalition-label {
+    font-weight: 600;
+    margin-right: auto;
+}
+
+/* Contextual Help in Controls */
+.help-details {
+    width: 100%;
+    margin-top: 0.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+}
+
+.help-details summary {
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: var(--color-primary);
+    list-style: none;
+    /* remove default arrow in some browsers */
+}
+
+.help-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.help-details[open] summary {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.5rem;
+}
+
+.help-content ul {
+    list-style-position: inside;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.help-content li strong {
+    color: var(--color-text);
+}
+
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-grow: 1;
+    min-width: 280px;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.custom-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.custom-select:focus {
+    border-color: var(--color-primary);
+}
+
+.custom-select-wrapper {
+    position: relative;
+}
+
+.custom-select-wrapper::after {
+    content: "▼";
+    font-size: 0.8rem;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-text-muted);
+}
+
+.global-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn {
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-secondary-text);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary-hover);
+}
+
+.btn-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+}
+
+/* Results Section */
+.results-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+.result-status {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    /* Zwiększone z 1.5rem wg sugestii */
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+.result-status.passed {
+    background-color: var(--color-za-bg);
+    color: var(--color-za);
+    border-color: var(--color-za);
+}
+
+.result-status.failed {
+    background-color: var(--color-przeciw-bg);
+    color: var(--color-przeciw);
+    border-color: var(--color-przeciw);
+}
+
+.quorum-indicator {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quorum-indicator span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.progress-bar-bg {
+    width: 100%;
+    background-color: var(--color-secondary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-bg.small {
+    height: 8px;
+    max-width: 300px;
+}
+
+.progress-bar-bg.unified {
+    height: 24px;
+    display: flex;
+    border-radius: var(--radius-md);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quorum-fill {
+    background-color: var(--color-primary);
+    width: 0%;
+}
+
+.quorum-line {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    width: 2px;
+    background-color: var(--color-text);
+    z-index: 10;
+}
+
+.za-fill {
+    background-color: var(--color-za);
+}
+
+.przeciw-fill {
+    background-color: var(--color-przeciw);
+}
+
+.wstrzym-fill {
+    background-color: var(--color-wstrzym);
+}
+
+.threshold-line {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    width: 3px;
+    background-color: var(--color-text);
+    z-index: 10;
+    transition: left 0.4s ease;
+    border-radius: 2px;
+}
+
+.votes-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .votes-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.vote-stat {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+}
+
+.vote-stat .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.vote-stat .value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+}
+
+.vote-stat.za {
+    color: var(--color-za);
+    background-color: var(--color-za-bg);
+}
+
+.vote-stat.przeciw {
+    color: var(--color-przeciw);
+    background-color: var(--color-przeciw-bg);
+}
+
+.vote-stat.wstrzym {
+    color: var(--color-wstrzym);
+    background-color: var(--color-wstrzym-bg);
+}
+
+.vote-stat.nieobecni {
+    color: var(--color-nieobecni);
+    background-color: var(--color-nieobecni-bg);
+}
+
+
+.progress-container {
+    margin-top: 1rem;
+    position: relative;
+    padding: 0 10px;
+    /* space for threshold line */
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* Clubs Section */
+.clubs-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+}
+
+.clubs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.club-card {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.2s, box-shadow 0.3s;
+    border: 2px solid transparent;
+    /* Ready for vote outlines */
+}
+
+/* Dynamic border classes added via JS */
+.club-card.club-all-za {
+    border-color: var(--color-za);
+    box-shadow: 0 0 10px var(--color-za-bg);
+}
+
+.club-card.club-all-przeciw {
+    border-color: var(--color-przeciw);
+    box-shadow: 0 0 10px var(--color-przeciw-bg);
+}
+
+.club-card.club-all-wstrzym {
+    border-color: var(--color-wstrzym);
+    box-shadow: 0 0 10px var(--color-wstrzym-bg);
+}
+
+.club-card:hover {
+    transform: translateY(-2px);
+}
+
+.club-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 0.75rem;
+}
+
+.club-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.club-color-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.club-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.club-size-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.club-size-input {
+    width: 60px;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    text-align: center;
+    font-weight: 600;
+}
+
+.club-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.club-actions .btn {
+    flex-grow: 1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+}
+
+.club-actions .btn:hover {
+    background: var(--color-secondary);
+}
+
+.club-votes-inputs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 500px) {
+    .club-votes-inputs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.input-group.za label {
+    color: var(--color-za);
+}
+
+.input-group.przeciw label {
+    color: var(--color-przeciw);
+}
+
+.input-group.wstrzym label {
+    color: var(--color-wstrzym);
+}
+
+.input-group.nieobecni label {
+    color: var(--color-nieobecni);
+}
+
+.vote-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    transition: box-shadow 0.2s;
+    outline: none;
+}
+
+.vote-input:focus {
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.vote-input[readonly] {
+    background: var(--color-nieobecni-bg);
+    border-color: transparent;
+    cursor: default;
+}
+
+.app-footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+/* Scrollbar tweaks for webkit */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+}

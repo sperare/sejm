@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Głosowań Sejmowych</title>
+    <meta name="description" content="Symulator i kalkulator wyników głosowań w polskim Sejmie X kadencji.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Kalkulator Sejmowy</h1>
+            <p>X Kadencja (2023 - 2027)</p>
+            <div class="theme-toggle" id="theme-toggle" title="Przełącz motyw" aria-label="Włącz/Wyłącz Dark Mode">
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                </svg>
+                <svg id="sun-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                </svg>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="global-politics glass-panel">
+                <h2>Rząd i Opozycja</h2>
+                <div class="coalition-actions">
+                    <div class="coalition-group rzad-actions">
+                        <span class="coalition-label">Koalicja 15 X (Rząd):</span>
+                        <button class="btn btn-sm" id="rzad-za">Za</button>
+                        <button class="btn btn-sm" id="rzad-przeciw">Przeciw</button>
+                    </div>
+                    <div class="coalition-group opozycja-actions">
+                        <span class="coalition-label">Opozycja:</span>
+                        <button class="btn btn-sm" id="opozycja-za">Za</button>
+                        <button class="btn btn-sm" id="opozycja-przeciw">Przeciw</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="controls-section glass-panel">
+                <h2>Ustawienia głosowania</h2>
+                <div class="form-group">
+                    <label for="majority-type">Typ większości</label>
+                    <div class="custom-select-wrapper">
+                        <select id="majority-type" class="custom-select">
+                            <option value="zwykla">Większość Zwykła (np. ustawy)</option>
+                            <option value="bezwzgledna">Większość Bezwzględna (np. wotum zaufania)</option>
+                            <option value="3/5">3/5 (odrzucenie weta Prezydenta)</option>
+                            <option value="2/3">2/3 (skrócenie kadencji / zmiana Konstytucji)</option>
+                        </select>
+                    </div>
+
+                    <details class="help-details">
+                        <summary>Jakie są rodzaje większości i gdzie się je stosuje?</summary>
+                        <div class="help-content">
+                            <ul>
+                                <li><strong>Większość Zwykła</strong> (Za > Przeciw):
+                                    Do uchwalania większości ustaw, m.in. ustawy budżetowej, wyboru Marszałka Sejmu,
+                                    powoływania członków Rady Ministrów (w 3. kroku), wybór sędziów KRS.
+                                </li>
+                                <li><strong>Większość Bezwzględna</strong> (Za > Przeciw + Wstrzym):
+                                    Odrzucenie poprawek Senatu, wotum zaufania dla rządu (1. krok), skrócenie kadencji
+                                    Senatu, zarządzenie referendum ogólnokrajowego, wotum nieufności wobec ministra.
+                                </li>
+                                <li><strong>Większość 3/5</strong>:
+                                    Odrzucenie weta Prezydenta (przy obecności co najmniej połowy ustawowej liczby
+                                    posłów), postawienie członka Rady Ministrów przed Trybunałem Stanu.
+                                </li>
+                                <li><strong>Większość 2/3</strong>:
+                                    Zmiana Konstytucji RP, skrócenie kadencji Sejmu, wyrażenie zgody na ratyfikację
+                                    niektórych umów międzynarodowych.
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="global-actions">
+                    <button class="btn btn-primary" id="reset-all-btn">Resetuj Głosy</button>
+                </div>
+            </section>
+
+            <section class="results-section glass-panel">
+                <h2>Wynik Głosowania</h2>
+                <div class="results-layout">
+                    <div class="result-status" id="result-status">Oczekuje...</div>
+
+                    <div class="quorum-indicator" id="quorum-container">
+                        <span id="quorum-text">Kworum: 0/460</span>
+                        <div class="progress-bar-bg small">
+                            <div class="progress-bar-fill quorum-fill" id="quorum-bar"></div>
+                            <div class="quorum-line" style="left: 50%;" title="Próg Kworum (230)"></div>
+                        </div>
+                        <span id="quorum-warning" class="warning-text" style="display:none;">Brak Kworum! (wymagane
+                            230)</span>
+                    </div>
+
+                    <div class="votes-summary">
+                        <div class="vote-stat za">
+                            <span class="label">ZA</span>
+                            <span class="value" id="total-za">0</span>
+                        </div>
+                        <div class="vote-stat przeciw">
+                            <span class="label">PRZECIW</span>
+                            <span class="value" id="total-przeciw">0</span>
+                        </div>
+                        <div class="vote-stat wstrzym">
+                            <span class="label">WSTRZYMAŁO SIĘ</span>
+                            <span class="value" id="total-wstrzym">0</span>
+                        </div>
+                        <div class="vote-stat nieobecni">
+                            <span class="label">NIEOBECNI</span>
+                            <span class="value" id="total-nieobecni">460</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar-bg unified">
+                            <div class="progress-bar-fill za-fill" id="bar-za" style="width: 0%"></div>
+                            <div class="progress-bar-fill przeciw-fill" id="bar-przeciw" style="width: 0%"></div>
+                            <div class="progress-bar-fill wstrzym-fill" id="bar-wstrzym" style="width: 0%"></div>
+
+                            <!-- Threshold indicator lines (dynamically moved via JS) -->
+                            <div class="threshold-line" id="threshold-line" title="Wymagany Próg"></div>
+                        </div>
+                        <div class="progress-labels">
+                            <span id="threshold-info">Próg: Głosy ZA > PRZECIW</span>
+                            <span id="votes-diff">Brakuje: -</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="clubs-section">
+                <div class="section-header">
+                    <h2>Kluby i Koła Poselskie</h2>
+                    <span class="total-seats" id="total-seats-count">Suma mandatów: 460</span>
+                </div>
+                <div class="clubs-list" id="clubs-list">
+                    <!-- Kluby generowane dynamicznie w JS -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Dane według stanu na luty 2026 r. (Sejm X Kadencji).</p>
+            <p>Stworzone za pomocą Czystego HTML, CSS i JS.</p>
+        </footer>
+    </div>
+
+    <!-- Template for a club row -->
+    <template id="club-template">
+        <div class="club-card glass-panel" data-club-id="">
+            <div class="club-header">
+                <div class="club-title">
+                    <div class="club-color-dot"></div>
+                    <h3 class="club-name">Nazwa Klubu</h3>
+                </div>
+                <div class="club-size-control">
+                    <label>Posłów: </label>
+                    <input type="number" class="club-size-input" min="0" max="460" value="0">
+                </div>
+            </div>
+
+            <div class="club-actions">
+                <button class="btn btn-sm btn za-bulk">Za</button>
+                <button class="btn btn-sm btn przeciw-bulk">Przeciw</button>
+                <button class="btn btn-sm btn wstrzym-bulk">Wstrzymał się</button>
+                <button class="btn btn-sm btn nieobecni-bulk">Nieobecny</button>
+            </div>
+
+            <div class="club-votes-inputs">
+                <div class="input-group za">
+                    <label>Za</label>
+                    <input type="number" class="vote-input input-za" min="0" value="0">
+                </div>
+                <div class="input-group przeciw">
+                    <label>Przeciw</label>
+                    <input type="number" class="vote-input input-przeciw" min="0" value="0">
+                </div>
+                <div class="input-group wstrzym">
+                    <label>Wstrzymał się</label>
+                    <input type="number" class="vote-input input-wstrzym" min="0" value="0">
+                </div>
+                <div class="input-group nieobecni">
+                    <label>Nieobecny</label>
+                    <input type="number" class="vote-input input-nieobecni" min="0" value="0">
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
