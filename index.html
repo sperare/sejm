@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sejm Voting Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="number"] {
+            padding: 10px;
+            width: 100px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sejm Voting Calculator</h1>
+    <p>Enter the number of votes:</p>
+    <input type="number" id="votesYes" placeholder="Votes Yes">
+    <input type="number" id="votesNo" placeholder="Votes No">
+    <button onclick="calculateResults()">Calculate</button>
+    <h2 id="result"></h2>
+    <script>
+        function calculateResults() {
+            const votesYes = parseInt(document.getElementById('votesYes').value) || 0;
+            const votesNo = parseInt(document.getElementById('votesNo').value) || 0;
+            const totalVotes = votesYes + votesNo;
+            const percentageYes = totalVotes > 0 ? (votesYes / totalVotes) * 100 : 0;
+            const percentageNo = totalVotes > 0 ? (votesNo / totalVotes) * 100 : 0;
+            document.getElementById('result').innerText = `Results: ${percentageYes.toFixed(2)}% Yes, ${percentageNo.toFixed(2)}% No`;
+        }
+    </script>
+</body>
+</html>
